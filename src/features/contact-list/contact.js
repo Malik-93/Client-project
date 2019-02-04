@@ -1,37 +1,44 @@
 import React from 'react'
-const Contact = (props) => <div> <table className="table table-bordered">
-  {/* <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Symbol</th>
-      <th>%/hour</th>
-      <th>%/day</th>
-      <th>%/week</th>
-    </tr>
-  </thead> */}
-  <tbody>
-        {
+import ReactToExcel from 'react-html-table-to-excel';
+const Contact = (props) => {
+  console.log(props)
+  return (
+    <div>
+      <ReactToExcel
+        className="btn btn-outline-secondary"
+        table="table-to-xls"
+        filename="excelFile"
+        sheet="sheet1"
+        buttonText='Export-to-Excel'
+      />
+      <hr></hr>
+      <table className="table table-bordered" id="table-to-xls">
+        <thead className="thead-light">
           <tr>
-              <td>{props.name}</td>
-              <td>{props.phone}</td>
-              <td>{ props.address } { props.suite }</td>
-            <td>{ props.city } { props.state }, { props.zip }</td>
-            </tr>
-              
-        }
-      </tbody>
-</table>
-</div>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>%/hour</th>
+            <th>%/week</th>
+            <th>%/day</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            props.users.map((item) => {
+              return (
+                <tr key={Math.random()}>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.address}</td>
+                  <td>{item.zip}</td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}
 export default Contact
-
-
-
-
- /* <div className="contact">
-   <div>{ props.name }</div>
-   <div>{ props.email }</div>
-   <div>{ props.phone }</div>
-   <div>{ props.address } { props.suite }</div>
-   <div>{ props.city } { props.state }, { props.zip }</div>
-  </div>  */

@@ -1,7 +1,6 @@
 import React from 'react'
 import fetch from 'isomorphic-fetch'
 import Contact from './contact'
-// import App from '../../App'
 class ContactList extends React.Component {
   state = {
     contacts: [],
@@ -17,19 +16,19 @@ class ContactList extends React.Component {
       this.handleScroll(e)
     })
   }
-  
+
   handleScroll = () => {
-    const { scrolling, totalPages, page} = this.state
+    const { scrolling, totalPages, page } = this.state
     if (scrolling) return
     if (totalPages <= page) return
-    var lastLi = document.querySelector('ul.contacts > li:last-child')
-    var lastLiOffset = lastLi.offsetTop + lastLi.clientHeight
+    // var lastLi = document.querySelector('tr.contacts > td:last-child')
+    // var lastLiOffset = lastLi.offsetTop + lastLi.clientHeight
     var pageOffset = window.pageYOffset + window.innerHeight
     var bottomOffset = 20
-    if (pageOffset > lastLiOffset - bottomOffset) {
+    if (pageOffset >  bottomOffset) {
       this.loadMore()
     }
-    
+
   }
 
   loadContacts = () => {
@@ -52,14 +51,19 @@ class ContactList extends React.Component {
   }
 
   render() {
-    return <ul className="contacts contact-container">
-      {
-        this.state.contacts.map(contact => <li key={contact.id}>
-          <Contact {...contact} />
-        </li>)
-      }
-    </ul>
+    return (
+      <div>
+       <Contact users = {this.state.contacts} />
+      </div>
+    )
   }
 }
 
 export default ContactList
+// return <ul className="contacts contact-container">
+//   {
+//     this.state.contacsts.map(contact => <li key={contact.id}>
+//       <Contact {...contact} />
+//     </li>)
+//   }
+// </ul>
